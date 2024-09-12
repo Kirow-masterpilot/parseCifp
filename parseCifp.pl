@@ -42,7 +42,7 @@ unless ( getopts( "$opt_string", \%opt ) ) {
     usage();
     exit(1);
 }
-if ( $arg_num < 1 ) {
+if ( $arg_num < 2 ) {
     usage();
     exit(1);
 }
@@ -51,7 +51,11 @@ if ( $arg_num < 1 ) {
 my $datafile = $ARGV[0];
 my $dbfile = $ARGV[1];
 
-#Other command line parameters
+# print datafile and dbfile
+say "Datafile: $datafile";
+say "DBfile: $dbfile";
+
+# Other command line parameters
 my $debug        = $opt{v};
 my $shouldExpand = $opt{e};
 
@@ -764,7 +768,7 @@ sub coordinateToDecimalCifpFormat {
 }
 
 sub usage {
-    say "Usage: $0 -v -e -c<cycle> <directory containing FAACIFP18>\n";
+    say "Usage: $0 -v -e <path to FAACIFP> <path to database output file>\n";
     say "-v: enable debug output";
     say "-e: expand text";
     return;
