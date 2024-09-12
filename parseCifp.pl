@@ -47,17 +47,13 @@ if ( $arg_num < 1 ) {
     exit(1);
 }
 
-#Get the target data directory from command line options
-my $targetdir = $ARGV[0];
+# Get the target data file & output file from command line options
+my $datafile = $ARGV[0];
+my $dbfile = $ARGV[1];
 
 #Other command line parameters
 my $debug        = $opt{v};
 my $shouldExpand = $opt{e};
-my $cycle        = $opt{c};
-
-#Open appropriate data file in the target directory
-my ( $filename, $dir, $ext ) = fileparse( $targetdir, qr/\.[^.]*/ );
-my $datafile = "$dir" . "FAACIFP18";    # . "-$cycle";
 
 my $file;
 open $file, '<', $datafile or die "cannot open $datafile: $!";
@@ -123,7 +119,6 @@ my $parser_airportheliport = Parse::FixedLength->new(
 );
 
 # Create/connect to the database
-my $dbfile = "./cifp-$cycle.db";
 my $dbh = DBI->connect( "dbi:SQLite:dbname=$dbfile", "", "" );
 
 # Set some parameters to speed INSERTs up at the expense of safety
